@@ -1,0 +1,40 @@
+using UnityEngine;
+
+public class ParallaxBackground : MonoBehaviour
+{
+    private Camera _mainCamera;
+    private float _lastCameraPositionX;
+    // 무한 배경 변수
+    private float _cameraHalfWidth;
+
+    [SerializeField] private ParallaxLayer[] backgroundLayers;
+
+    private void Awake()
+    {
+        _mainCamera = Camera.main;
+        _cameraHalfWidth = _mainCamera.orthographicSize * _mainCamera.aspect;
+        InitializeLayers();
+    }
+
+    private void FixedUpdate()
+    {
+        float currentCameraPositionX = _mainCamera.transform.position.x;
+        float distanceToMove = currentCameraPositionX - _lastCameraPositionX;
+        _lastCameraPositionX = currentCameraPositionX;
+
+        // 무한 배경 코드
+        float cameraLeftEdge = currentCameraPositionX - _cameraHalfWidth;
+        float cameraRightEdge = currentCameraPositionX + _cameraHalfWidth;
+
+        foreach (ParallaxLayer layer in backgroundLayers)
+        {
+            layer.Move(distanceToMove);
+            layer.LoopBackground(cameraLeftEdge, cameraRightEdge);
+        }
+    }
+    private void InitializeLayers()
+    {
+        foreach (ParallaxLayer layer in backgroundLayers)
+            layer.CalculateImageWidth();
+    }
+}
