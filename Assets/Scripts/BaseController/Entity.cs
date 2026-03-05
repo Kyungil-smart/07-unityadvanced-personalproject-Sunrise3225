@@ -1,8 +1,12 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    public event Action OnFlipped;
+    public event Action OnEnemyDead;
+    
     public Animator Anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
 
@@ -38,7 +42,10 @@ public class Entity : MonoBehaviour
         StateMachine.UpdateActiveState();
     }
 
-    public virtual void EntityDead() { }
+    public virtual void EntityDead()
+    {
+        OnEnemyDead?.Invoke();
+    }
     public void CurrentStateAnimationTrigger()
     {
         StateMachine.CurrentState.AnimationTrigger();
@@ -80,6 +87,7 @@ public class Entity : MonoBehaviour
         transform.Rotate(0, 180, 0);
         _facingRight = !_facingRight;
         FacingDir = FacingDir * -1;
+        OnFlipped?.Invoke();
     }
     void HandleCollisionDetection()
     {

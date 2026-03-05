@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Enemy : Entity
@@ -8,6 +9,7 @@ public class Enemy : Entity
     public Enemy_AttackState AttackState;
     public Enemy_BattleState BattleState;
     public Enemy_DeadState DeadState;
+    public Enemy_BossDeadState BossDeadState;
     #endregion
 
     [Header("Battle details")]
@@ -40,7 +42,6 @@ public class Enemy : Entity
     public override void EntityDead()
     {
         base.EntityDead();
-        StateMachine.ChangeState(DeadState);
     }
     private void HandlePlayerDeath()
     {

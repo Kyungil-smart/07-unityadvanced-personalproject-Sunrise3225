@@ -1,7 +1,5 @@
 
-using UnityEngine;
-
-public class Enemy_Skeleton : Enemy
+public class Enemy_Boss : Enemy
 {
     protected override void Awake()
     {
@@ -11,7 +9,7 @@ public class Enemy_Skeleton : Enemy
         MoveState = new Enemy_MoveState(this, StateMachine, "Move");
         AttackState = new Enemy_AttackState(this, StateMachine, "Attack");
         BattleState = new Enemy_BattleState(this, StateMachine, "Battle");
-        DeadState = new Enemy_DeadState(this, StateMachine, "Idle");
+        BossDeadState = new Enemy_BossDeadState(this, StateMachine, "Dead");
     }
     protected override void Start()
     {
@@ -21,6 +19,6 @@ public class Enemy_Skeleton : Enemy
     public override void EntityDead()
     {
         base.EntityDead();
-        StateMachine.ChangeState(DeadState);
+        StateMachine.ChangeState(BossDeadState);
     }
 }

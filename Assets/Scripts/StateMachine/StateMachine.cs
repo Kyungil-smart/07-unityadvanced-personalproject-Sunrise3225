@@ -21,7 +21,7 @@ public class StateMachine
 
     public void UpdateActiveState()
     {
-        CurrentState.Update();        
+        CurrentState.Update();
     }
     public void SwitchOffStateMachine() => CanChangeState = false;
 }

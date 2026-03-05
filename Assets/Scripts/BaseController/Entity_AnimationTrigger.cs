@@ -18,4 +18,9 @@ public class Entity_AnimationTrigger : MonoBehaviour
     {
         _entityCombat.PerformAttack();
     }
+
+    private void LongAttackTrigger()
+    {
+        _entityCombat.PerformLongAttack();
+    }
 }
